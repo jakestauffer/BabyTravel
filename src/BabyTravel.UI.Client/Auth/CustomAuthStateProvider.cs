@@ -90,13 +90,26 @@ namespace BabyTravel.UI.Client.Auth
             }
         }
 
-        public void SignOut()
+        public async Task LogoutAsync()
         {
-            _user = null;
+            try
+            {
+                await _userClient.LogoutAsync();
 
-            _claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
+                _user = null;
 
-            NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+                _claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
+
+                NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+            }
+            catch (ApiException<ErrorResponse> ex)
+            {
+                _notificationService.Notify(NotificationSeverity.Error, summary: "Error", detail: ex.Result.Message);
+            }
+            catch (Exception ex)
+            {
+                _notificationService.Notify(NotificationSeverity.Error, summary: "Error", detail: $"Unexpected error: {ex.Message}");
+            }
         }
 
         private ClaimsPrincipal GetClaimsPrincipleFor(User user) =>

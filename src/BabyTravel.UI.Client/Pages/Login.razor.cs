@@ -17,6 +17,9 @@ namespace BabyTravel.UI.Client.Pages
         [Inject]
         private CustomAuthStateProvider CustomAuthStateProvider { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         private string _email = null;
         private string _password = null;
 
@@ -51,6 +54,8 @@ namespace BabyTravel.UI.Client.Pages
                 }
 
                 await CustomAuthStateProvider.LoginAsync(_email, _password);
+
+                NavigationManager.NavigateTo("/Home");
             }
             catch (ApiException<ErrorResponse> ex)
             {

@@ -1,4 +1,5 @@
 ﻿using BabyTravel.Api.Client;
+using BabyTravel.UI.Client.Auth;
 using Microsoft.AspNetCore.Components;
 
 namespace BabyTravel.UI.Client.Components
@@ -8,13 +9,17 @@ namespace BabyTravel.UI.Client.Components
         [Inject]
         public IUserClient UserClient { get; set; }
 
+        [Inject]
+        private CustomAuthStateProvider CustomAuthStateProvider { get; set; }
+
         private bool _loggingOut;
 
-        private async Task LogoutAsync()
+        // TODO: If logout, then login again, get weird issue where you see the header but nothing else
+        private void Logout()
         {
             _loggingOut = true;
 
-            await UserClient.LogoutAsync();
+            //await customauthstateprovider.logoutasync();
         }
     }
 }

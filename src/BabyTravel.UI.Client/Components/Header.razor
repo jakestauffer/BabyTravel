@@ -11,7 +11,7 @@
 
         <RadzenRow>
             <RadzenText Text="@context.User.GetUserEmail()" />
-            <RadzenButton Icon="logout" ButtonStyle="Radzen.ButtonStyle.Primary" Variant="Radzen.Variant.Outlined" Click="LogoutAsync" />
+            <RadzenButton Icon="logout" ButtonStyle="Radzen.ButtonStyle.Primary" Variant="Radzen.Variant.Outlined" Click="Logout" />
 
             @if (_loggingOut)
             {

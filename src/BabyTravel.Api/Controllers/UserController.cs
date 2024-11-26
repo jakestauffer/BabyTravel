@@ -55,7 +55,10 @@ namespace BabyTravel.Api.Controllers
         }
 
         [Authorize]
-        public Task Logout() => HttpContext.SignOutAsync();
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync();
+        }
 
         [AllowAnonymous]
         public async Task Register(UserCreateRequest userCreateRequest)

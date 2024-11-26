@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BabyTravel.UI.Client.Auth;
+using Microsoft.AspNetCore.Components;
 
 namespace BabyTravel.UI.Client.Components
 {
@@ -7,11 +8,16 @@ namespace BabyTravel.UI.Client.Components
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        protected override void OnAfterRender(bool firstRender)
+        [Inject]
+        private CustomAuthStateProvider CustomAuthStateProvider { get; set; }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             base.OnAfterRender(firstRender);
 
-            NavigationManager.NavigateTo("/Login", true);
+            await CustomAuthStateProvider.LogoutAsync();
+
+            NavigationManager.NavigateTo("/", true);
         }
     }
 }
