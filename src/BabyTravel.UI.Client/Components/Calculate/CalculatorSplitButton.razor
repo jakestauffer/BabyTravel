@@ -1,0 +1,27 @@
+﻿<RadzenSplitButton @ref="_splitButton" Click=@(args => OnCalculateSplitButtonClick(args)) Icon="calculate">
+    <ChildContent>
+        <RadzenSplitButtonItem Text="Diaper" Value="Diaper" Icon="baby_changing_station" />
+        <RadzenSplitButtonItem Text="Meal" Value="Meal" Icon="restaurant" />
+        <RadzenSplitButtonItem Text="Outfit" Value="Outfit" Icon="checkroom" />
+        <RadzenSplitButtonItem Text="Sleep" Value="Sleep" Icon="bedtime" />
+    </ChildContent>
+</RadzenSplitButton>
+
+@switch (_calculation)
+{
+    case "Diaper":
+        <Dialog T="DiaperCalculator" Open="_openDialog" Title="@_title" />
+        break;
+    case "Meal":
+        <Dialog T="MealCalculator" Open="_openDialog" Title="@_title" />
+        break;
+    case "Outfit":
+        <Dialog T="OutfitCalculator" Open="_openDialog" Title="@_title" />
+        break;
+    case "Sleep":
+        <Dialog T="SleepCalculator" Open="_openDialog" Title="@_title" />
+        break;
+    default:
+        <Dialog T="TripCalculator" Open="_openDialog" Title="@_title" />
+        break;
+}

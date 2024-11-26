@@ -1,0 +1,24 @@
+﻿@using BabyTravel.UI.Client.Components.Calculate;
+@inherits LayoutComponentBase
+
+<AuthorizeView>
+    <NotAuthorized>
+        <RadzenNotification />
+        <BabyTravel.UI.Client.Pages.Login />
+    </NotAuthorized>
+    <Authorized>
+        <RadzenComponents @rendermode="RenderMode.InteractiveAuto" />
+        <RadzenNotification />
+        <div class="page" style="padding-bottom:100px">
+            <main>
+                <div class="top-row px-4" style="height:auto">
+                   <BabyTravel.UI.Client.Components.Header />
+                </div>
+
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
+    </Authorized>
+</AuthorizeView>

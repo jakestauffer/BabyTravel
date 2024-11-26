@@ -1,0 +1,23 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<PageTitle>Home</PageTitle>
+
+<RadzenStack>
+    <RadzenRow>
+        <RadzenColumn Style="width: 50%">
+            <RadzenCard Style="margin-bottom: 10px">
+                <BabyTravel.UI.Client.Components.Trip.TripList />
+            </RadzenCard>
+            <RadzenCard>
+                <BabyTravel.UI.Client.Components.Baby.BabyList />
+            </RadzenCard>
+        </RadzenColumn>
+        <RadzenColumn Style="height: 100%">
+            <RadzenCard>
+                <BabyTravel.UI.Client.Components.Summary />
+            </RadzenCard>
+        </RadzenColumn>
+    </RadzenRow>
+</RadzenStack>

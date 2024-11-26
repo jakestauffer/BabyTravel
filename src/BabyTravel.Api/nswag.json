@@ -1,0 +1,33 @@
+{
+  "runtime": "Net80",
+  "defaultVariables": null,
+  "documentGenerator": {
+    "aspNetCoreToOpenApi": {
+      "project": "BabyTravel.Api.csproj",
+      "msBuildProjectExtensionsPath": null,
+      "configuration": "$(Configuration)",
+      "runtime": "",
+      "targetFramework": "",
+      "noBuild": true,
+      "verbose": true,
+      "workingDirectory": null,
+      "requireParametersWithoutDefault": true,
+      "apiGroupNames": null,
+      "defaultPropertyNameHandling": "Default",
+      "aspNetCoreEnvironment": "Development"
+    }
+  },
+  "codeGenerators": {
+    "openApiToCSharpClient": {
+      "clientBaseClass": null,
+      "generateClientClasses": true,
+      "generateClientInterfaces": true,
+      "clientBaseInterface": null,
+      "injectHttpClient": true,
+      "disposeHttpClient": true,
+      "useBaseUrl": false,
+      "namespace": "BabyTravel.Api.Client",
+      "output": "../BabyTravel.Api.Client/BabyTravelApiClient.cs"
+    }
+  }
+}

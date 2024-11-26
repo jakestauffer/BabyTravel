@@ -1,0 +1,21 @@
+﻿@using BabyTravel.Api.Client;
+@using BabyTravel.UI.Client.Extensions;
+@using BabyTravel.UI.Client.Models.Calculate.Forms;
+@using BabyTravel.UI.Client.Models.Calculate.Responses;
+@using Microsoft.AspNetCore.Components.Forms;
+@using Radzen;
+@using BabyTravel.UI.Client.Models.Calculate;
+
+<Calculator 
+        TRequestForm="CalculateTripForm"
+        TResponse="CalculateTripResponse"
+        Calculate="CalculateTripAsync">
+    <AdditionalTravelInputs>
+        <RadzenLabel Text="Washing frequency (in days)" Component="WashingFrequency" />
+        <RadzenNumeric @bind-Value="@context.WashingFrequencyInDays" Name="WashingFrequency" />
+    </AdditionalTravelInputs>
+    <DisplayResponseConent>
+        <BabyTravel.UI.Client.Components.Calculate.Response.FullSummaryCalculation
+            CalculateTripResponse="context" />
+    </DisplayResponseConent>
+</Calculator>

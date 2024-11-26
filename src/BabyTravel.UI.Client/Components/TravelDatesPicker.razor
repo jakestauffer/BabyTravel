@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Components.Forms;
+@using Radzen;
+@typeparam TRequestForm;
+
+<RadzenLabel Text="Travel Start Date" Component="TravelStartDatePicker" />
+<RadzenDatePicker @bind-Value=@RequestForm.TravelStartDate
+                    DateFormat="MM/dd/yyyy"
+                    Name="TravelStartDatePicker" 
+                    Style="margin-bottom:10px"/>
+
+<RadzenLabel Text="Travel End Date" Component="TravelEndDatePicker" />
+<RadzenDatePicker @bind-Value=@RequestForm.TravelEndDate
+                    DateFormat="MM/dd/yyyy"
+                    Name="TravelEndDatePicker" />

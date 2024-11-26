@@ -1,0 +1,83 @@
+﻿@using BabyTravel.Api.Client;
+@using BabyTravel.UI.Client.Models;
+@using BabyTravel.UI.Client.Models.Calculate.Forms;
+@using Microsoft.AspNetCore.Components.Forms;
+@using Radzen;
+@typeparam TRequestForm;
+@typeparam TResponse;
+
+<RadzenTemplateForm TItem="TRequestForm" Submit=@OnSubmit Data="_form">
+    @if (_canInputTravel)
+    {
+        <RadzenRow AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Right">
+            <RadzenLabel Text="Traveling?" Component="IsTravelingCheckBox" class="rz-ms-2" />
+            <RadzenSwitch @bind-Value="_isTraveling" Name="IsTravelingCheckBox" />
+        </RadzenRow>
+    }
+    <RadzenRow Gap="2rem">
+        <RadzenColumn Size="6">
+            <RadzenFieldset>
+                <HeaderTemplate>
+                    <RadzenStack Orientation="Orientation.Horizontal" Gap="0.25rem">
+                        <RadzenIcon Icon="crib" /><b>Baby</b>
+                    </RadzenStack>
+                </HeaderTemplate>
+                <ChildContent>
+                    <RadzenRow AlignItems="AlignItems.Center">
+                        <RequiredField Label="Baby's Birthday" Component="BabyBirthdayPicker" ValidationMessage="Birthday is required">
+                            <RadzenDatePicker @bind-Value=@_form.BabyBirthday DateFormat="MM/dd/yyyy" Name="BabyBirthdayPicker" />
+                        </RequiredField>
+                    </RadzenRow>
+                </ChildContent>
+            </RadzenFieldset>
+        </RadzenColumn>
+
+        @if (_isTraveling)
+        {
+            <RadzenColumn>
+                <RadzenFieldset>
+                    <HeaderTemplate>
+                        <RadzenStack Orientation="Orientation.Horizontal" Gap="0.25rem">
+                            <RadzenIcon Icon="card_travel" /><b>Travel</b>
+                        </RadzenStack>
+                    </HeaderTemplate>
+                    <ChildContent>
+                        <RadzenRow AlignItems="AlignItems.Center">
+                            <RadzenLabel Text="Travel Start Date" Component="TravelStartDatePicker" />
+                            <RadzenDatePicker @bind-Value="@(((IWithTravelDates)_form).TravelStartDate)"
+                                              DateFormat="MM/dd/yyyy"
+                                              Name="TravelStartDatePicker" />
+                        </RadzenRow>
+
+                        <RadzenRow AlignItems="AlignItems.Center">
+                            <RadzenLabel Text="Travel End Date" Component="TravelEndDatePicker" />
+                            <RadzenDatePicker @bind-Value="@(((IWithTravelDates)_form).TravelEndDate)"
+                                              DateFormat="MM/dd/yyyy"
+                                              Name="TravelEndDatePicker" />
+                        </RadzenRow>
+
+                        @if (AdditionalTravelInputs != null)
+                        {
+                            <RadzenRow AlignItems="AlignItems.Center">
+                                @AdditionalTravelInputs(_form)
+                            </RadzenRow>
+                        }
+                    </ChildContent>
+                </RadzenFieldset>
+            </RadzenColumn>
+        }
+    </RadzenRow>
+
+    @if (_response != null)
+    {
+        <hr />
+
+        <RadzenStack>
+            @DisplayResponseConent(_response)
+        </RadzenStack>
+    }
+
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" class="rz-mt-8 rz-mb-4">
+        <RadzenButton ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Text="Submit" IsBusy="_isCalculating" />
+    </RadzenStack>
+</RadzenTemplateForm>

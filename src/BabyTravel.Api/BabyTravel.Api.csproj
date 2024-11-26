@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<Configurations>Debug</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="8.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
+    <PackageReference Include="NSwag.AspNetCore" Version="14.1.0" />
+    <PackageReference Include="NSwag.MSBuild" Version="14.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BabyTravel.Api.Exceptions\BabyTravel.Api.Exceptions.csproj" />
+    <ProjectReference Include="..\BabyTravel.Api.MappingProfiles\BabyTravel.Api.MappingProfiles.csproj" />
+    <ProjectReference Include="..\BabyTravel.Api.Models\BabyTravel.Api.Models.csproj" />
+    <ProjectReference Include="..\BabyTravel.Calculator\BabyTravel.Calculator.csproj" />
+    <ProjectReference Include="..\BabyTravel.Constants\BabyTravel.Constants.csproj" />
+    <ProjectReference Include="..\BabyTravel.Data.Models\BabyTravel.Data.Models.csproj" />
+    <ProjectReference Include="..\BabyTravel.Data\BabyTravel.Data.csproj" />
+  </ItemGroup>
+
+  <Target Name="NSwag" AfterTargets="Build" Condition="$(Configuration)=='Debug'">
+	<Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net80) run nswag.json /variables:Configuration=$(Configuration)" />
+  </Target>
+	
+</Project>

@@ -1,0 +1,26 @@
+﻿@using BabyTravel.UI.Client.Extensions;
+<RadzenCard>
+    <RadzenRow RowGap="0">
+        <RadzenColumn SizeSM="4">
+            <RadzenText TextStyle="TextStyle.Overline">Solids per day</RadzenText>
+            <RadzenText TextStyle="TextStyle.Body1"><b>@Calculation.SolidsPerDay.ToStringBetween()</b></RadzenText>
+
+            <RadzenText TextStyle="TextStyle.Overline">Total solids</RadzenText>
+            <RadzenText TextStyle="TextStyle.Body1"><b>@Calculation.TotalSolids.ToStringUpTo()</b></RadzenText>
+        </RadzenColumn>
+        <RadzenColumn SizeSM="4">
+            <RadzenText TextStyle="TextStyle.Overline">Snacks per day</RadzenText>
+            <RadzenText TextStyle="TextStyle.Body1"><b>@Calculation.SnacksPerDay.ToStringBetween()</b></RadzenText>
+
+            <RadzenText TextStyle="TextStyle.Overline">Total snacks</RadzenText>
+            <RadzenText TextStyle="TextStyle.Body1"><b>@Calculation.TotalSnacks.ToStringUpTo()</b></RadzenText>
+        </RadzenColumn>
+        <RadzenColumn SizeSM="4">
+            <RadzenText TextStyle="TextStyle.Overline">Feedings per day</RadzenText>
+            <RadzenText TextStyle="TextStyle.Body1"><b>@Calculation.FeedingsPerDay.ToStringBetween()</b></RadzenText>
+
+            <RadzenText TextStyle="TextStyle.Overline">Total feedings</RadzenText>
+            <RadzenText TextStyle="TextStyle.Body1"><b>@Calculation.FeedingsPerDay.ToStringUpTo()</b></RadzenText>
+        </RadzenColumn>
+    </RadzenRow>
+</RadzenCard>

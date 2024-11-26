@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BabyTravel.Api.Models\BabyTravel.Api.Models.csproj" />
+    <ProjectReference Include="..\BabyTravel.Data.Models\BabyTravel.Data.Models.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,54 @@
+﻿@using BabyTravel.UI.Client.Components.Calculate.Response
+@using BabyTravel.Utilities
+@using Radzen;
+
+<RadzenButton Icon="add" Style="width: auto; height: auto;display:flex;margin-left:auto" Click="OnOpenAddDialog" />
+
+<RadzenText Text="Trips" TextStyle="TextStyle.H3"/>
+
+@if (_loadingPage)
+{
+    <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+}
+else
+{
+    <RadzenDataList 
+        AllowPaging="true"
+        WrapItems="true"
+        PageSize="1"
+        PagerHorizontalAlign="HorizontalAlign.Center"
+        Data="@_trips" 
+        Style="height:auto;overflow:auto;width:100%" 
+        TItem="UI.Client.Models.Trip.Trip">
+        <Template Context="trip">
+            <RadzenCard Variant="Variant.Filled" Style="height: 100px; width: 100%; overflow: hidden;">
+                <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Outlined" Style="width: auto; float: right;" Click="() => OnDeleteAsync(trip)" />
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Warning" Variant="Variant.Outlined" Style="width: auto; float: right; margin-right: 5px" Click="() => OnOpenEditDialog(trip)" />
+                <RadzenButton Icon="calculate" ButtonStyle="ButtonStyle.Primary" Style="width: auto; float: right; margin-right: 5px" Click="() => OnCalculateAsync(trip)" />
+                <RadzenRow Gap="0">
+                    <RadzenColumn>
+                        <RadzenText TextStyle="TextStyle.Body1"><b>@trip.Name</b></RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1"><i>@trip.Start.ToString("MM/dd/yyyy") - @trip.End.ToString("MM/dd/yyyy")</i></RadzenText>
+                    </RadzenColumn>
+                </RadzenRow>
+            </RadzenCard>
+        </Template>
+    </RadzenDataList>
+
+    <Dialog 
+        T="TripDialog" 
+        Title="@_tripDialogTitle" 
+        @bind-Open="_openTripDialog" 
+        OnClose="RefreshAsync"
+        Parameters="new Dictionary<string, object>() { {nameof(TripDialog.Trip), _selectedTrip } }" />
+   
+    <Dialog 
+        T="FullSummaryCalculationList" 
+        Title="@($"Summary for {_selectedTrip?.Name}")" 
+        @bind-Open="_openCalculationDialog" 
+        OnClose="RefreshAsync"
+        Parameters="new Dictionary<string, object>() 
+            { 
+                {nameof(FullSummaryCalculationList.Calculations), _calculations }
+            }" />
+}

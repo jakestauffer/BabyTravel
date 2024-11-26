@@ -1,0 +1,19 @@
+﻿@using Radzen;
+
+<RadzenPager 
+    ShowPagingSummary="true"
+    PagingSummaryFormat=@("Page {0} of {1} ({2} babies)")
+    HorizontalAlign="HorizontalAlign.Right"
+    Count="_calculations.Count"
+    PageSize="1"
+    PageNumbersCount="_calculations.Count"
+    PageChanged="PageChanged" />
+
+<RadzenDataList WrapItems="true" AllowPaging="false" Data="@_calculationsToView" Style="height:auto;overflow:auto;width:100%" TItem="Models.Calculate.Responses.CalculateBabyTripResponse" PageSize="1">
+    <Template Context="calculation">
+        <RadzenStack>
+            <h6>@calculation.Baby.Name</h6>
+            <FullSummaryCalculation CalculateTripResponse="calculation.CalculateTripResponse"/>
+        </RadzenStack>
+    </Template>
+</RadzenDataList>

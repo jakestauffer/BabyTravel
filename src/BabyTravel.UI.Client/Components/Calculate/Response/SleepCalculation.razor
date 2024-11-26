@@ -1,0 +1,20 @@
+﻿@using BabyTravel.UI.Client.Extensions;
+<RadzenCard>
+    <RadzenRow RowGap="0">
+        <RadzenColumn SizeSM="4">
+            <RadzenText TextStyle="TextStyle.Overline">Total sleep</RadzenText>
+            <RadzenText TextStyle="TextStyle.Body1"><b>@Calculation.TotalSleepInHours.ToStringUpTo() hours</b></RadzenText>
+        </RadzenColumn>
+        <RadzenColumn>
+            <RadzenText TextStyle="TextStyle.Overline">Naps per day</RadzenText>
+            <RadzenText TextStyle="TextStyle.Body1"><b>@Calculation.NapsPerDay.ToStringUpTo()</b></RadzenText>
+
+            <RadzenText TextStyle="TextStyle.Overline">Nap length</RadzenText>
+            <RadzenText TextStyle="TextStyle.Body1"><b>@Calculation.NapLengthInHours.ToStringBetween() hours</b></RadzenText>
+        </RadzenColumn>
+        <RadzenColumn>
+            <RadzenText TextStyle="TextStyle.Overline">Wake winodws</RadzenText>
+            <RadzenText TextStyle="TextStyle.Body1"><b>@Calculation.WakeWindowInHours.ToStringBetween() hours</b></RadzenText>
+        </RadzenColumn>
+    </RadzenRow>
+</RadzenCard>

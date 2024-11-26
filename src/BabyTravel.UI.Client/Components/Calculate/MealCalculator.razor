@@ -1,0 +1,14 @@
+﻿@using BabyTravel.Api.Client;
+@using BabyTravel.UI.Client.Extensions;
+@using BabyTravel.UI.Client.Models.Calculate.Forms;
+@using Microsoft.AspNetCore.Components.Forms;
+@using Radzen;
+@using BabyTravel.UI.Client.Models.Calculate;
+
+<Calculator TRequestForm="CalculateMealForm"
+                   TResponse="CalculateMealResponse"
+                   Calculate="CalculateMealsAsync">
+    <DisplayResponseConent>
+        <BabyTravel.UI.Client.Components.Calculate.Response.MealCalculation Calculation="@context" />
+    </DisplayResponseConent>
+</Calculator>

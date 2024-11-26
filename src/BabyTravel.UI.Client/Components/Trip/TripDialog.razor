@@ -1,0 +1,31 @@
+﻿@using Radzen;
+
+<RadzenTemplateForm TItem="UI.Client.Models.Trip.Trip" Submit=@SubmitAsync Data="Trip">
+    <RadzenFieldset>
+        <HeaderTemplate>
+            <RadzenStack Orientation="Orientation.Horizontal" Gap="0.25rem">
+                <RadzenIcon Icon="card_trip" /><b>Trip</b>
+            </RadzenStack>
+        </HeaderTemplate>
+        <ChildContent>
+            <RadzenRow AlignItems="AlignItems.Center" Style="margin-bottom:10px">
+                <RequiredField Label="Trip Name" Component="TripName" ValidationMessage="Name is required">
+                    <RadzenTextBox @bind-Value=@Trip.Name Name="TripName" />
+                </RequiredField>
+            </RadzenRow>
+
+            <RadzenRow AlignItems="AlignItems.Center">
+                <RequiredField Label="Trip Start" Component="TripStartPicker" ValidationMessage="Start is required">
+                    <RadzenDatePicker @bind-Value=@Trip.Start DateFormat="MM/dd/yyyy" Name="TripStartPicker" />
+                </RequiredField>
+                 <RequiredField Label="Trip End" Component="TripEndPicker" ValidationMessage="End is required">
+                    <RadzenDatePicker @bind-Value=@Trip.End DateFormat="MM/dd/yyyy" Name="TripEndPicker" />
+                </RequiredField>
+            </RadzenRow>
+        </ChildContent>
+    </RadzenFieldset>
+
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" class="rz-mt-8 rz-mb-4">
+        <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" Text="Submit" IsBusy="_submitting" />
+    </RadzenStack>
+</RadzenTemplateForm>

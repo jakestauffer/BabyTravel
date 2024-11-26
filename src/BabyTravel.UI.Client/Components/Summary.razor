@@ -1,0 +1,51 @@
+﻿@using Radzen
+<h3>Summary</h3>
+
+@if (_isLoading)
+{
+    <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+} 
+else
+{
+    @if (_currentTrip != null)
+    {
+        <div style="margin-bottom: 10px">
+            <RadzenText TextStyle="TextStyle.H6"><strong>Current trip</strong></RadzenText>
+            <RadzenCard Variant="Variant.Filled" Style="height: auto; width: 100%; overflow: hidden;">
+                <RadzenRow Gap="0">
+                    <RadzenColumn>
+                        <RadzenText TextStyle="TextStyle.Body1"><b>@_currentTrip.Name</b></RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1"><i>@_currentTrip.Start.ToString("MM/dd/yyyy") - @_currentTrip.End.ToString("MM/dd/yyyy")</i></RadzenText>
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenAccordion>
+                    <Items>
+                        <RadzenAccordionItem Text="Details">
+                            <BabyTravel.UI.Client.Components.Calculate.Response.FullSummaryCalculation CalculateTripResponse="_calculateBabyCurrentTripResponse.CalculateTripResponse" />
+                        </RadzenAccordionItem>
+                    </Items>
+                </RadzenAccordion>
+            </RadzenCard>
+        </div>
+    }
+
+    @if (_nextTrip != null)
+    {
+        <RadzenText TextStyle="TextStyle.H6"><strong>Next trip</strong></RadzenText>
+        <RadzenCard Variant="Variant.Filled" Style="height: auto; width: 100%; overflow: hidden;">
+            <RadzenRow Gap="0">
+                <RadzenColumn>
+                    <RadzenText TextStyle="TextStyle.Body1"><b>@_nextTrip.Name</b></RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body1"><i>@_nextTrip.Start.ToString("MM/dd/yyyy") - @_nextTrip.End.ToString("MM/dd/yyyy")</i></RadzenText>
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenAccordion>
+                <Items>
+                    <RadzenAccordionItem Text="Details">
+                        <BabyTravel.UI.Client.Components.Calculate.Response.FullSummaryCalculation CalculateTripResponse="_calculateBabyNextTripResponse.CalculateTripResponse" />
+                    </RadzenAccordionItem>
+                </Items>
+            </RadzenAccordion>
+        </RadzenCard>
+    }
+}

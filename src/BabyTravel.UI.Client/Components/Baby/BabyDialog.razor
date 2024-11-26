@@ -1,0 +1,28 @@
+﻿@using Radzen;
+
+<RadzenTemplateForm id="baby-dialog" TItem="UI.Client.Models.Baby.Baby" Submit=@SubmitAsync Data="Baby">
+    <RadzenFieldset>
+        <HeaderTemplate>
+            <RadzenStack Orientation="Orientation.Horizontal" Gap="0.25rem">
+                <RadzenIcon Icon="crib" /><b>Baby</b>
+            </RadzenStack>
+        </HeaderTemplate>
+        <ChildContent>
+            <RadzenRow AlignItems="AlignItems.Center" Style="margin-bottom:10px">
+                <RequiredField Label="Baby's Name" Component="BabyName" ValidationMessage="Name is required">
+                    <RadzenTextBox @bind-Value=@Baby.Name Name="BabyName" />
+                </RequiredField>
+            </RadzenRow>
+
+            <RadzenRow AlignItems="AlignItems.Center">
+                <RequiredField Label="Baby's Birthday" Component="BabyBirthdayPicker" ValidationMessage="Birthday is required">
+                    <RadzenDatePicker @bind-Value=@Baby.Birthday DateFormat="MM/dd/yyyy" Name="BabyBirthdayPicker" />
+                </RequiredField>
+            </RadzenRow>
+        </ChildContent>
+    </RadzenFieldset>
+
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" class="rz-mt-8 rz-mb-4">
+        <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" Text="Submit" IsBusy="_submitting" />
+    </RadzenStack>
+</RadzenTemplateForm>

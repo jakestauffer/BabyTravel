@@ -1,0 +1,42 @@
+﻿@page "/Login"
+@using Radzen
+
+<video autoplay muted loop id="loginVideo">
+    <source src="login_video.mp4" type="video/mp4">
+</video>
+
+
+<div class="content">
+    <RadzenCard class="rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12" style="max-width: 600px;">
+        <RadzenText TextStyle="TextStyle.DisplayH4">Welcome to BabyTravel!</RadzenText>
+        <RadzenTemplateForm Data=@("LoginWithRegister")>
+            @if (_submitting)
+            {
+                <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+            }
+            else if (_registering)
+            {
+                <RadzenLogin AllowRegister="true"
+                                AllowResetPassword="false"
+                                UserText="Email"
+                                Username="@_email"
+                                Password="@_password"
+                                Login=@(args => OnSubmitAsync(args))
+                                LoginText="Sign Up"
+                                RegisterMessageText="Already have an account?"
+                                RegisterText="Login"
+                                Register=@OnRegister />
+            }
+            else
+            {
+                <RadzenLogin AllowRegister="true"
+                                AllowResetPassword="false"
+                                UserText="Email"
+                                Username="@_email"
+                                Password="@_password"
+                                Login=@(args => OnSubmitAsync(args))
+                                Register=@OnRegister />
+            }
+        </RadzenTemplateForm>
+    </RadzenCard>
+</div>

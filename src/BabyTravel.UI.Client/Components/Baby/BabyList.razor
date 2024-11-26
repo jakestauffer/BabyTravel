@@ -1,0 +1,52 @@
+﻿@using BabyTravel.UI.Client.Components.Calculate.Response
+@using BabyTravel.Utilities
+@using Radzen;
+
+<RadzenButton Icon="add" Style="width: auto; height: auto;display:flex;margin-left:auto" Click="OnOpenAddDialog" />
+
+<RadzenText Text="Babies" TextStyle="TextStyle.H3" />
+
+@if (_loadingPage)
+{
+    <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+}
+else
+{
+    <RadzenDataList 
+        AllowPaging="true"
+        WrapItems="true"
+        PageSize="1"
+        PagerHorizontalAlign="HorizontalAlign.Center"
+        Data="@_babies" 
+        Style="height:auto;overflow:auto;width:100%" 
+        TItem="UI.Client.Models.Baby.Baby">
+        <Template Context="baby">
+            <RadzenCard Variant="Variant.Filled" Style="height: 100px; width: 100%; overflow: hidden;">
+                <RadzenButton id="delete-baby" Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Outlined" Style="width: auto; float: right;" Click="() => OnDeleteAsync(baby)" />
+                <RadzenButton id="edit-baby" Icon="edit" ButtonStyle="ButtonStyle.Warning" Variant="Variant.Outlined" Style="width: auto; float: right; margin-right: 5px" Click="() => OnOpenEditDialog(baby)" />
+                <RadzenButton Icon="calculate" ButtonStyle="ButtonStyle.Primary" Style="width: auto; float: right; margin-right: 5px" Click="() => OnCalculateAsync(baby)" />
+                <RadzenRow Gap="0">
+                    <RadzenColumn>
+                        <RadzenText id="baby-name" TextStyle="TextStyle.Body1"><b>@baby.Name</b></RadzenText>
+                        <RadzenText id="baby-age" TextStyle="TextStyle.Body1"><i>@GetAge(baby)</i></RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1"><i>@baby.Birthday.ToString("MM/dd/yyyy")</i></RadzenText>
+                    </RadzenColumn>
+                </RadzenRow>
+            </RadzenCard>
+        </Template>
+    </RadzenDataList>
+
+    <Dialog T="BabyDialog" 
+            Title="@_babyDialogTitle" 
+            @bind-Open="_openBabyDialog"
+            OnClose="RefreshAsync"
+            Parameters="new Dictionary<string, object>() { {nameof(BabyDialog.Baby), _selectedBaby } }" />
+    <Dialog
+        T="FullSummaryCalculation" 
+        @bind-Open=_openCalculationDialog
+        Title="@($"One day summary for {_selectedBaby?.Name}")" 
+        Parameters="new Dictionary<string, object>() 
+            { 
+                {nameof(FullSummaryCalculation.CalculateTripResponse), _calculateTripResponse }
+            }" />
+}

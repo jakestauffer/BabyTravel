@@ -1,0 +1,30 @@
+﻿
+@if (CalculateTripResponse.DiaperResponse != null)
+{
+    <RadzenText TextStyle="TextStyle.H6"><strong>Diapers</strong></RadzenText>
+    <DiaperCalculation Calculation="CalculateTripResponse.DiaperResponse" />
+
+    <br />
+}
+
+@if (CalculateTripResponse.MealResponse != null)
+{
+    <RadzenText TextStyle="TextStyle.H6"><strong>Meals</strong></RadzenText>
+    <MealCalculation Calculation="CalculateTripResponse.MealResponse" />
+
+    <br />
+}
+
+@if (CalculateTripResponse.OutfitResponse != null)
+{
+    <RadzenText TextStyle="TextStyle.H6"><strong>Outfits</strong></RadzenText>
+    <OutfitCalculation Calculation="CalculateTripResponse.OutfitResponse" />
+
+    <br />
+}
+
+@if (CalculateTripResponse.SleepResponse != null)
+{
+    <RadzenText TextStyle="TextStyle.H6"><strong>Sleep</strong></RadzenText>
+    <SleepCalculation Calculation="CalculateTripResponse.SleepResponse" />
+}

@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.6" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="Radzen.Blazor" Version="4.33.3" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BabyTravel.Api.Client\BabyTravel.Api.Client.csproj" />
+    <ProjectReference Include="..\BabyTravel.Constants\BabyTravel.Constants.csproj" />
+    <ProjectReference Include="..\BabyTravel.UI.Client.Models\BabyTravel.UI.Client.Models.csproj" />
+    <ProjectReference Include="..\BabyTravel.Utilities\BabyTravel.Utilities.csproj" />
+  </ItemGroup>
+
+    <ItemGroup>
+	    <KnownRuntimePack Update="@(KnownRuntimePack)">
+		    <LatestRuntimeFrameworkVersion Condition="'%(TargetFramework)' == 'TARGETFRAMEWORK'">EXISTINGVERSION</LatestRuntimeFrameworkVersion>
+	    </KnownRuntimePack>
+    </ItemGroup>
+
+</Project>

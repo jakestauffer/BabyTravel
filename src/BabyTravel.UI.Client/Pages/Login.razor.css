@@ -1,0 +1,15 @@
+﻿#loginVideo {
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    object-fit: cover;
+}
+
+.content {
+    position: fixed;
+    width: 100%;
+    padding: 20px;
+}
