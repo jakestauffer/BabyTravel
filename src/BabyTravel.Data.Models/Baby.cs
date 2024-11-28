@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BabyTravel.Data.Models
 {
-    [Index(nameof(Name), IsUnique = true)]
+    [Index(nameof(Name), nameof(UserId), IsUnique = true)]
     public class Baby : BaseEntity
     {
         [Required]
