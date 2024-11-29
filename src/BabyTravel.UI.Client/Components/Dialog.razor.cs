@@ -28,7 +28,7 @@ namespace BabyTravel.UI.Client.Components
         {
             if (Open)
             {
-                var result = await DialogService.OpenAsync<T>(
+                await DialogService.OpenAsync<T>(
                      Title,
                      Parameters,
                      new DialogOptions()

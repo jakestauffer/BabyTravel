@@ -4,7 +4,6 @@ using CSharpFunctionalExtensions;
 
 namespace BabyTravel.Calculator
 {
-    // https://www.babysleepsite.com/naps/baby-naps-chart-how-many-how-long/
     public class Sleep
     {
         private Baby _baby;

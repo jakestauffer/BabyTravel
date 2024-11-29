@@ -9,6 +9,7 @@ using BabyTravel.UI.Client.Models.User;
 using User = BabyTravel.UI.Client.Models.User.User;
 using Radzen;
 using Microsoft.AspNetCore.Http;
+using BabyTravel.UI.Client.Helpers;
 
 namespace BabyTravel.UI.Client.Auth
 {
@@ -16,17 +17,19 @@ namespace BabyTravel.UI.Client.Auth
     {
         private readonly IUserClient _userClient;
         private readonly NotificationService _notificationService;
+        private readonly ClientHelper _clientHelper;
 
         private ClaimsPrincipal _claimsPrincipal;
         private User? _user;
 
         public CustomAuthStateProvider(
             IUserClient userClient,
-            NotificationService notificationService) 
+            NotificationService notificationService,
+            ClientHelper clientHelper) 
         {
             _userClient = userClient;
             _notificationService = notificationService;
-
+            _clientHelper = clientHelper;
             _claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
         }
 
@@ -61,9 +64,8 @@ namespace BabyTravel.UI.Client.Auth
             return new AuthenticationState(_claimsPrincipal);
         }
 
-        public async Task LoginAsync(string email, string password)
-        {
-            try
+        public Task LoginAsync(string email, string password) =>
+            _clientHelper.ExecuteAndNotifyErrorsOnlyAsync(async () => 
             {
                 await _userClient.LoginAsync(new UserLoginRequest()
                 {
@@ -79,20 +81,10 @@ namespace BabyTravel.UI.Client.Auth
                 _claimsPrincipal = GetClaimsPrincipleFor(_user);
 
                 NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                _notificationService.Notify(NotificationSeverity.Error, summary: "Error", detail: ex.Result.Message);
-            }
-            catch (Exception ex)
-            {
-                _notificationService.Notify(NotificationSeverity.Error, summary: "Error", detail: $"Unexpected error: {ex.Message}");
-            }
-        }
+            });
 
-        public async Task LogoutAsync()
-        {
-            try
+        public Task LogoutAsync() =>
+            _clientHelper.ExecuteAndNotifyErrorsOnlyAsync(async () =>
             {
                 await _userClient.LogoutAsync();
 
@@ -101,16 +93,7 @@ namespace BabyTravel.UI.Client.Auth
                 _claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
 
                 NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                _notificationService.Notify(NotificationSeverity.Error, summary: "Error", detail: ex.Result.Message);
-            }
-            catch (Exception ex)
-            {
-                _notificationService.Notify(NotificationSeverity.Error, summary: "Error", detail: $"Unexpected error: {ex.Message}");
-            }
-        }
+            });
 
         private ClaimsPrincipal GetClaimsPrincipleFor(User user) =>
             new ClaimsPrincipal(

@@ -4,10 +4,6 @@ namespace BabyTravel.UI.Client.Auth
 {
     public class CookieHandler : DelegatingHandler
     {
-        public CookieHandler()// : base(new HttpClientHandler())
-        { 
-        }
-
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);

@@ -42,11 +42,6 @@ namespace BabyTravel.Api.Controllers
 
         public override async Task<BabyResponse> Create(BabyCreateRequest createRequest)
         {
-            var email =
-                User.Claims
-                .FirstOrDefault(c => c.Type == ClaimTypes.Email)
-                ?.Value;
-
             var babyToAdd = _mapper.Map<BabyCreateRequest, Data.Models.Baby>(createRequest);
             babyToAdd.UserId = _user.Id;
 

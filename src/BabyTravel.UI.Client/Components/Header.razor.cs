@@ -14,7 +14,6 @@ namespace BabyTravel.UI.Client.Components
 
         private bool _loggingOut;
 
-        // TODO: If logout, then login again, get weird issue where you see the header but nothing else
         private void Logout()
         {
             _loggingOut = true;

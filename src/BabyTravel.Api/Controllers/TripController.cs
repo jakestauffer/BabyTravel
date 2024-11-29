@@ -35,11 +35,6 @@ namespace TripTravel.Api.Controllers
         // TODO: Consider way to centralize handling entities that relate to user
         public override async Task<TripResponse> Create(TripCreateRequest createRequest)
         {
-            var email =
-                User.Claims
-                .FirstOrDefault(c => c.Type == ClaimTypes.Email)
-                ?.Value;
-
             var tripToAdd = _mapper.Map<TripCreateRequest, Trip>(createRequest);
             tripToAdd.UserId = _user.Id;
 

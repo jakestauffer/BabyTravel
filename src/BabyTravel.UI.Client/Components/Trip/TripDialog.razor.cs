@@ -1,4 +1,5 @@
 ﻿using BabyTravel.Api.Client;
+using BabyTravel.UI.Client.Helpers;
 using BabyTravel.UI.Client.Models.Trip;
 using Microsoft.AspNetCore.Components;
 
@@ -12,31 +13,37 @@ namespace BabyTravel.UI.Client.Components.Trip
         [Inject]
         public ITripClient TripClient { get; set; }
 
+        [Inject]
+        public ClientHelper ClientHelper { get; set; }
+
         private bool _submitting;
 
         private async Task SubmitAsync()
         {
             _submitting = true;
 
-            if (Trip.Id == 0)
+            await ClientHelper.ExecuteAndNotifySuccessAndErrorsAsync(async () =>
             {
-                await TripClient.CreateAsync(new TripCreateRequest()
+                if (Trip.Id == 0)
                 {
-                    Start = Trip.Start,
-                    End = Trip.End,
-                    Name = Trip.Name
-                });
-            }
-            else
-            {
-                await TripClient.UpdateAsync(new TripUpdateRequest()
+                    await TripClient.CreateAsync(new TripCreateRequest()
+                    {
+                        Start = Trip.Start,
+                        End = Trip.End,
+                        Name = Trip.Name
+                    });
+                }
+                else
                 {
-                    Id = Trip.Id,
-                    Start = Trip.Start,
-                    End = Trip.End,
-                    Name = Trip.Name
-                });
-            }
+                    await TripClient.UpdateAsync(new TripUpdateRequest()
+                    {
+                        Id = Trip.Id,
+                        Start = Trip.Start,
+                        End = Trip.End,
+                        Name = Trip.Name
+                    });
+                }
+            });
 
             _submitting = false;
 

@@ -31,6 +31,7 @@ builder.Services
     .AddHttpMessageHandler<CookieHandler>();
 
 builder.Services.AddScoped<CalculationHelper>();
+builder.Services.AddScoped<ClientHelper>();
 
 builder.Services.AddScoped<NotificationService>();
 

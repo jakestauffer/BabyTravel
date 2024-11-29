@@ -5,6 +5,7 @@ using Radzen.Blazor.Rendering;
 using Radzen.Blazor;
 using Radzen;
 using BabyTravel.UI.Client.Models.Calculate.Forms;
+using BabyTravel.UI.Client.Helpers;
 
 namespace BabyTravel.UI.Client.Components.Calculate
 {
@@ -26,6 +27,9 @@ namespace BabyTravel.UI.Client.Components.Calculate
 
         [Inject]
         private NotificationService NotificationService { get; set; }
+
+        [Inject]
+        private ClientHelper ClientHelper { get; set; }
 
         [Inject]
         private IJSRuntime JSRuntime { get; set; }
@@ -53,37 +57,7 @@ namespace BabyTravel.UI.Client.Components.Calculate
         {
             _isCalculating = true;
 
-            try
-            {
-                _response = await Calculate(CalculateClient, request);
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                NotificationService.Notify(new NotificationMessage()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "Error",
-                    Detail = ex.Result.Message
-                });
-            }
-            catch (ApiException ex)
-            {
-                NotificationService.Notify(new NotificationMessage()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "Error",
-                    Detail = ex.Message
-                });
-            }
-            catch
-            {
-                NotificationService.Notify(new NotificationMessage()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "Error",
-                    Detail = "Unexpected error"
-                });
-            }
+            await ClientHelper.ExecuteAndNotifySuccessAndErrorsAsync(async () => _response = await Calculate(CalculateClient, request));
 
             _isCalculating = false;
         }

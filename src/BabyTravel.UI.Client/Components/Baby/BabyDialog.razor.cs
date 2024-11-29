@@ -1,4 +1,5 @@
 ﻿using BabyTravel.Api.Client;
+using BabyTravel.UI.Client.Helpers;
 using BabyTravel.UI.Client.Models.Baby;
 using Microsoft.AspNetCore.Components;
 
@@ -12,29 +13,36 @@ namespace BabyTravel.UI.Client.Components.Baby
         [Inject]
         public IBabyClient BabyClient { get; set; }
 
+        [Inject]
+        public ClientHelper ClientHelper { get; set; }
+
         private bool _submitting;
 
         private async Task SubmitAsync()
         {
             _submitting = true;
 
-            if (Baby.Id == 0)
+            await ClientHelper.ExecuteAndNotifySuccessAndErrorsAsync(async () =>
             {
-                await BabyClient.CreateAsync(new BabyCreateRequest()
+
+                if (Baby.Id == 0)
                 {
-                    BabyBirthday = Baby.Birthday,
-                    Name = Baby.Name
-                });
-            }
-            else
-            {
-                await BabyClient.UpdateAsync(new BabyUpdateRequest()
+                    await BabyClient.CreateAsync(new BabyCreateRequest()
+                    {
+                        BabyBirthday = Baby.Birthday,
+                        Name = Baby.Name
+                    });
+                }
+                else
                 {
-                    Id = Baby.Id,
-                    BabyBirthday = Baby.Birthday,
-                    Name = Baby.Name
-                });
-            }
+                    await BabyClient.UpdateAsync(new BabyUpdateRequest()
+                    {
+                        Id = Baby.Id,
+                        BabyBirthday = Baby.Birthday,
+                        Name = Baby.Name
+                    });
+                }
+            });
 
             _submitting = false;
 

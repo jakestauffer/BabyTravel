@@ -1,5 +1,6 @@
 ﻿using BabyTravel.Api.Client;
 using BabyTravel.UI.Client.Auth;
+using BabyTravel.UI.Client.Helpers;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,9 @@ namespace BabyTravel.UI.Client.Pages
 
         [Inject]
         private NotificationService NotificationService { get; set; }
+
+        [Inject]
+        private ClientHelper ClientHelper { get; set; }
 
         [Inject]
         private CustomAuthStateProvider CustomAuthStateProvider { get; set; }
@@ -42,7 +46,7 @@ namespace BabyTravel.UI.Client.Pages
                 return;
             }
 
-            try
+            await ClientHelper.ExecuteAndNotifyErrorsOnlyAsync(async () =>
             {
                 if (_registering)
                 {
@@ -56,15 +60,7 @@ namespace BabyTravel.UI.Client.Pages
                 await CustomAuthStateProvider.LoginAsync(_email, _password);
 
                 NavigationManager.NavigateTo("/Home");
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                NotificationService.Notify(NotificationSeverity.Error, summary: "Error", detail: ex.Result.Message);
-            }
-            catch (Exception ex)
-            {
-                NotificationService.Notify(NotificationSeverity.Error, summary: "Error", detail: $"Unexpected error: {ex.Message}");
-            }
+            });
 
             _submitting = false;
         }
